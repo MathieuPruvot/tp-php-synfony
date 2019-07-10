@@ -37,7 +37,7 @@
                     <p>{{ product.description }}</p>
                 </div>
                 <div class="category">
-                    <p> <a href="{{ path('productSlug', {'slug': product.category.slug}) }}"> categorie : {{ product.category.name }} </a></p>
+                    <p> categorie :  <a href="{{ path('productByCategory', {'slug': product.category.slug}) }}"> {{ product.category.name }} </a></p>
                 </div>
                 <div class="like">
                     <div>Tags: </div>
