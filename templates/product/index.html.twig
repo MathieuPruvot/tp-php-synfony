@@ -1,26 +1,51 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+    <link href="{{ asset('css/home.css') }}" rel="stylesheet"/> {% endblock %}
+
 {% block title %}Hello ProductController!{% endblock %}
 
 {% block body %}
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Nom</th>
-        <th>Prix</th>
-        <th>Description</th>
-        <th>Category</th>
-        <th>tags</th>
-    </tr>
-    {% for product in products %}
-        <tr>
-            <th>product.id</th>
-            <th>product.name</th>
-            <th>product.price</th>
-            <th>product.description</th>
-            <th>product.category</th>
-            <th>product.tags</th>
-        </tr>
-    {% endfor %}
-</table>
+    <h1> Liste de Nos Articles</h1>
+    {#<table>#}
+    {#    <tr>#}
+    {#        <th>ID</th>#}
+    {#        <th>Nom</th>#}
+    {#        <th>Prix</th>#}
+    {#        <th>Description</th>#}
+    {#        <th>Category</th>#}
+    {#        <th>tags</th>#}
+    {#    </tr>#}
+    {#    {% for product in products %}#}
+    {#        <tr>#}
+    {#            <th>{{ product.Id }}</th>#}
+    {#            <th>{{ product.Name }}</th>#}
+    {#            <th> {{ product.Price }}</th>#}
+    {#            <th> {{ product.description }}</th>#}
+    {#            <th> {{ product.Category.name }}</th>#}
+    {#        </tr>#}
+    {#    {% endfor %}#}
+    {#</table>#}
+    <div class="row">
+        {% for product in products %}
+            <div class="blockArticle col-3">
+                <div class="coreArticle">
+                    <h3> <a href="{{ path('productSlug', {'slug': product.slug}) }}"> {{ product.Name }} </a> </h3>
+                    <p class="price"> {{ product.Price }} €</p>
+                </div>
+                <div class="priceDescrition">
+                    <p>{{ product.description }}</p>
+                </div>
+                <div class="category">
+                    <p> <a href="{{ path('productSlug', {'slug': product.category.slug}) }}"> categorie : {{ product.category.name }} </a></p>
+                </div>
+                <div class="like">
+                    <div>Tags: </div>
+                    <div>
+                        <button class="btn btn-success">Like <i class="far fa-thumbs-up"></i></button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
