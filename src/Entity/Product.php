@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -43,6 +44,12 @@ class Product
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="products")
      */
     private $tags;
+
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string", length=100)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -126,6 +133,18 @@ class Product
             $this->tags->removeElement($tag);
             $tag->removeProduct($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
