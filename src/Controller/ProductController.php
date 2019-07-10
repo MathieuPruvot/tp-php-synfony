@@ -67,4 +67,38 @@ class ProductController extends AbstractController
             'products' => $products,
         ]);
     }
+
+    /**
+     * @Route("/product/{slug}", name="productSlug")
+     */
+    public function productSlugAction($slug)
+    {
+
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findBy(
+                ['slug' => $slug,]
+            );
+
+        return $this->render('product/index.html.twig', [
+            'controller_name' => 'ProductController',
+            'products' => $product,
+        ]);
+    }
+
+    /**
+     * @Route("/product/category/{slug}", name="productByCategory")
+     */
+    public function productByCategoryAction($slug)
+    {
+
+        $product = $this->getDoctrine()
+            ->getRepository(Product::class)
+            ->findByCategorySlug($slug);
+
+        return $this->render('product/index.html.twig', [
+            'controller_name' => 'ProductController',
+            'products' => $product,
+        ]);
+    }
 }
