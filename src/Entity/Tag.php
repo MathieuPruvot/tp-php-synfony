@@ -28,6 +28,11 @@ class Tag
      */
     private $products;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -72,6 +77,18 @@ class Tag
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
